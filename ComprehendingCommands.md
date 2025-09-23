@@ -46,3 +46,30 @@ cat can be used with both relative and absolute paths depending on the current l
 
 ### References 
 -
+
+
+
+
+
+
+
+
+
+## Challenge Name: more catting practice
+Read a flag that's in another directory, cannot use cd
+
+### Solve
+**Flag:** `pwn.college{YZ-qZQGkbVRpy6Y_3l8EP4G-xon.QXwITO0wyN5AzNzEzW}`
+
+The prompt says the flag is in /usr/share/seabios/flag and to read the flag file but not to use cd, therefore to simply read the file its entire path has to be provided to cat, cat /usr/share/seabios/flag so the file can be read without going into the directory
+
+```bash
+cat /usr/share/seabios/flag
+pwn.college{YZ-qZQGkbVRpy6Y_3l8EP4G-xon.QXwITO0wyN5AzNzEzW}
+```
+
+### New Learnings
+cat can be used to read files in other directories using absolute paths, not a necessity to be in the directory itself
+
+### References 
+-
