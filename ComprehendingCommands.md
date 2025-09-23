@@ -393,3 +393,110 @@ The main learning was remote interacting and the usage of absolute paths along w
 
 ### References 
 -
+
+
+
+
+
+
+
+
+
+## Challenge Name: making directories
+Introduces the mkdir command to make directories, the challenge requires the user to make a pwn directory in the tmp directory, and then create a blank college file inside
+
+### Solve
+**Flag:** `pwn.college{0Kj3cx7Kru5tXqM0xY8C-UkcHQA.QXxMDO0wyN5AzNzEzW}`
+
+tmp already exists in the list of directories, so using cd to enter tmp, to create /tmp/pwn the mkdir command works with just the directory name since the user is already inside the tmp directory, hence the command is mkdir pwn. To make a blank new file the touch command is used
+
+```bash
+cd /tmp
+/tmp$ mkdir pwn
+/tmp$ cd pwn
+/tmp/pwn$ touch college
+/tmp/pwn$ /challenge/run
+Success! Here is your flag:
+pwn.college{0Kj3cx7Kru5tXqM0xY8C-UkcHQA.QXxMDO0wyN5AzNzEzW}
+```
+
+### New Learnings
+The mkdir command is used to create directories with the directory name with path as its argument
+
+### References 
+-
+
+
+
+
+
+
+
+
+
+## Challenge Name: finding files
+The challenge requires the user to find a file named flag that is hidden somewhere in the filesystem, since it's not possible to sift through directories and files manually, the find function is introduced to look through differenct locations and search criterias
+
+### Solve
+**Flag:** `pwn.college{oorTpWuqrP9KMdY9XapoZHv1D5n.QXyMDO0wyN5AzNzEzW}`
+
+The find command works by find [location] [search criteria], the file can be anywhere so start by searching the entire filesystem i.e. starting with the root /, -name is used to search for a file by name here so / -name, and the file has the word flag in it so the entire command is / -name flag
+The find command returned a list of all files containing the word 'flag' in it, the permission denied ones can be ignored, by using cat <path 1>, cat <path 2> etc to check the file contents, the flag was found.
+
+```bash
+find / -name flag
+find: ‘/root’: Permission denied
+find: ‘/etc/ssl/private’: Permission denied
+find: ‘/tmp/tmp.TpSOPGOVKK’: Permission denied
+/usr/local/lib/python3.8/dist-packages/pwnlib/flag
+/usr/lib/x86_64-linux-gnu/perl/5.30.0/auto/Encode/TW/flag
+cat /usr/lib/x86_64-linux-gnu/perl/5.30.0/auto/Encode/TW/flag
+pwn.college{oorTpWuqrP9KMdY9XapoZHv1D5n.QXyMDO0wyN5AzNzEzW}
+```
+
+### New Learnings
+The find command is used to search for directories and files based on specific criteria
+/ is for system-wide searching
+-name is used to find directories or files that contain a particular name used in the argument
+Not specifying a search criteria matches every file in the directory
+Not specifying a search location find uses the current directory .
+
+### References 
+-
+
+
+
+
+
+
+
+
+
+## Challenge Name: linking files
+The challenge requires accessing the /flag file as usual, except running /challenge/catflag reads out /home/hacker/not-the-flag and not /flag, therefore a symbolic link needs to be created in order to read the real flag in /flag from a different location
+
+### Solve
+**Flag:** `pwn.college{wbeP4rGnnn9ZSLZrli6uEF4VJP7.QX5ETN1wyN5AzNzEzW}`
+
+/challenge/catflag only reads /home/hacker/not-the-flag but the required content is in /flag, here symbolic link acts like a pointer to a different file, the syntax is ln -s <target> <link>.
+The target here is /flag and the link must be /home/hacker/not-the-flag (/challenge/catflag only runs this) which actually leads to /flag essentially redirecting from the link to the real flag at /flag.
+Putting it all together: ln -s /flag /home/hacker/not-the-flag
+
+```bash
+ln -s /flag /home/hacker/not-the-flag
+/challenge/catflag
+About to read out the /home/hacker/not-the-flag file!
+pwn.college{wbeP4rGnnn9ZSLZrli6uEF4VJP7.QX5ETN1wyN5AzNzEzW}
+```
+
+### New Learnings
+Symbolic links function as pointers or shortcuts in a way to other files and directories (redirection)
+A symbolic link's job is to point to another file or directory by storing its path
+When called, the link is read which contains the path stored inside it and redirects to the target
+(ls -l to show symlinks)
+
+
+A hard link points to the inode or "real" data on the file, functions as a second name for exact same file data
+
+### References 
+-
