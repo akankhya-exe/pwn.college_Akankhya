@@ -134,3 +134,149 @@ There can be multiple wildcards in a single glob to create more wide-ranging sea
 
 ### References 
 -
+
+
+
+
+
+
+
+
+
+## Challenge Name: Mixing globs
+The challenge requires match the files "challenging", "educational" and "pwning" in the directory /challenge/files using multiple globbing.
+
+### Solve
+**Flag:** `pwn.college{wgH6pE9EZG2pRRRot0onn9VsCf1.QX1IDO0wyN5AzNzEzW}`
+
+On performing ls command in the /challenge/files there are multiple other files with words "amazing", "delgihtful" etc. The required matches "educational", "challenging" and "pwning" don't have any unique characters or sequences to these three that aren't also present in other files present in the directory. However, "challenging" is the only file that begins with c, "pwning" is the only file that begins with p, and "educational" is the only flag that begins with e. Then a bracket glob can be used to match c,e,p as the first character in the file name followed be anything as there are no other matches beginning with c, e or p. Then the argument would be [cep]*.
+
+```bash
+/challenge/run [cep]*
+You got it! Here is your flag!
+pwn.college{wgH6pE9EZG2pRRRot0onn9VsCf1.QX1IDO0wyN5AzNzEzW}
+```
+
+### New Learnings
+Multiple globbings can be mixed together according to specifications to find matches. A glob has to also exclude unwanted things instead of just things that are required. (Tried matching with just 'n' first but that came with unwanted matches too).
+
+### References 
+-
+
+
+
+
+
+
+
+
+
+## Challenge Name: Exclusionary globbing
+The challenge requires to find all file matches of file matches that don't start with p, w or n and introduces the ! or ^ characters to exclude characters.
+
+### Solve
+**Flag:** `pwn.college{0MfkUIxnq0urIT-KL7l9Oe360Z5.QX2IDO0wyN5AzNzEzW}`
+
+The challenge requires that the file names don't begin with p, w or n so a simple bracket glob with ^ works: [^pwn] and there's no other constrains on file names so following characters can be anything. Full argument would be [^pwn]*.
+
+```bash
+/challenge/files$ /challenge/run [^pwn]*
+You got it! Here is your flag!
+pwn.college{0MfkUIxnq0urIT-KL7l9Oe360Z5.QX2IDO0wyN5AzNzEzW}
+```
+
+### New Learnings
+! or ^ can be used to carry out exclusionary globbing i.e. avoiding characters that aren't wanted
+
+### References 
+-
+
+
+
+
+
+
+
+
+
+## Challenge Name: Tab completion
+Read (cat) the /challenge/pwncollege file without typing out the file name and using tab completion instead.
+
+### Solve
+**Flag:** `pwn.college{s874PsdULRRDHFFEA9iBlHUAZQ1.0FN0EzNxwyN5AzNzEzW}`
+
+Tab completion is used for autocompletion since the directory only contains two files: DESCRIPTION.md and pwncollege, on doing cat /challenge/pwn<TAB> the command autocompletes to cat /challenge/pwncollege and reads the file.
+
+```bash
+command 1
+command 2
+pwn.college{helloworld}
+```
+
+### New Learnings
+Tab is used for autocompletion and basically helps save time typing out entire names.
+
+### References 
+-
+
+
+
+
+
+
+
+
+
+## Challenge Name: Multiple options for tab completion
+The challenge is to use tab completion to read the file that contains the flag from a directory that contains multiple files with the same starting name. Tab key has to be employed multiple times to list the duplicate options and then find the correct file.
+
+### Solve
+**Flag:** `pwn.college{4WM_ag8aEahKaRkX7WD6FDlLS7L.0lN0EzNxwyN5AzNzEzW}`
+
+First, using /challenge/files/p<TAB>, the command gets completed to /challenge/files/pwn and stops completion at the common prefix. On pressing tab a second time all the files that begin with 'pwn' are displayed /challenge/files/p<TAB><TAB>. From there the pwncollege-flag contains the flag.
+
+```bash
+cat /challenge/files/pwn<TAB><TAB>
+pwn                    pwn-the-planet         pwncollege-flag        pwncollege-flyswatter
+pwn-college            pwncollege-family      pwncollege-flamingo    pwncollege-hacking
+
+cat /challenge/files/pwncollege-flag
+pwn.college{4WM_ag8aEahKaRkX7WD6FDlLS7L.0lN0EzNxwyN5AzNzEzW}
+```
+
+### New Learnings
+A tab completion completes as much as it can until it reaches ambiguity with files names and then waits for multiple tabs to list all possible completions. 
+
+### References 
+-
+
+
+
+
+
+
+
+
+
+# Module Name: Tab completion on commands
+The challenge builds on the concept of tab to autocomplete but instead on commands, the challenge requires to autocomplete the pwncollege command to execute the entire command to retrieve the flag.
+
+## Challenge Name
+Typing the pwncollege command and pressing the tab key autocompletes the command which gives the flag.
+
+### Solve
+**Flag:** `pwn.college{4RtRXkxi4dEa_iRxXxnfc7B5DZ7.0VN0EzNxwyN5AzNzEzW}`
+
+
+```bash
+pwncollege<TAB>
+pwncollege-9352
+Correct! Here is your flag:
+pwn.college{4RtRXkxi4dEa_iRxXxnfc7B5DZ7.0VN0EzNxwyN5AzNzEzW}
+```
+
+### New Learnings
+Tab completion can be used for paths and commands too.
+
+### References 
+-
