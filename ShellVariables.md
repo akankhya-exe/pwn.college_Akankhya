@@ -108,3 +108,122 @@ Unexported variables are like local variables that can't be used by outside comm
 
 ### References 
 -
+
+
+
+
+
+
+
+
+
+## Challenge Name: Printing exported variables
+The goal is to access all the exported variables using the env command to find the FLAG variable and its value which is an exported variable.
+
+### Solve
+**Flag:** `pwn.college{MDLnO73zA6r9Hqb1u4LacXersb9.QX4UTN0wyN5AzNzEzW}`
+
+The challenge is to access exported variables, specifically through the env command which shows all exported variables along with their values. So simply typing 'env' gives a list of all exported variables where the FLAG variable can be found.
+
+```bash
+env
+SHELL=/run/dojo/bin/bash
+HOSTNAME=variables~printing-exported-variables
+PWD=/home/hacker
+MANPATH=/run/dojo/share/man:
+DOJO_AUTH_TOKEN=2ce3afc192f7790a448a7d500fd5f99e47ca27edb5b4b036a7e6d7a5d3eedf50
+HOME=/home/hacker
+LANG=C.UTF-8
+FLAG=pwn.college{MDLnO73zA6r9Hqb1u4LacXersb9.QX4UTN0wyN5AzNzEzW}
+```
+
+### New Learnings
+env command can be used to see all exported variables.
+
+### References
+-
+
+
+
+
+
+
+
+
+
+## Challenge Name: Storing Command Output
+The challenge is to store the output /challenge/run in a variable PWN and read it to get the flag.
+
+### Solve
+**Flag:** `pwn.college{cWqRXqwI0GqQZXMS-hK0uOTeizO.QX1cDN1wyN5AzNzEzW}`
+
+A variable can hold the output of a command also if it is prepended by the $ symbol, therefore $(/challenge/run) gives the output which is then assigned to the variable PWN.
+
+```bash
+PWN=$(/challenge/run)
+echo $PWN
+pwn.college{cWqRXqwI0GqQZXMS-hK0uOTeizO.QX1cDN1wyN5AzNzEzW}
+```
+
+### New Learnings
+Variables can be assigned the outputs of commands also by using $.
+
+### References 
+-
+
+
+
+
+
+
+
+
+
+## Challenge Name: Reading Input
+The challenge is to read the value "COLLEGE" into the variable PWN by inputting using the read command.
+
+### Solve
+**Flag:** `pwn.college{YgBSJRHFzSThGVFE8wLgIzdYDaM.QX4cTN0wyN5AzNzEzW}`
+
+To read into a variable the syntax is read <variable name> and then the shell waits until user input is entered and assigns the input to the variable.
+
+```bash
+read PWN
+COLLEGE
+You've set the PWN variable properly! As promised, here is the flag:
+pwn.college{YgBSJRHFzSThGVFE8wLgIzdYDaM.QX4cTN0wyN5AzNzEzW}
+```
+
+### New Learnings
+read command is used to take user input
+
+### References 
+-
+
+
+
+
+
+
+
+
+
+## Challenge Name: Reading Files
+The challenge is to use the read command to read the /challenge/read_me into the PWN environment variable.
+
+### Solve
+**Flag:** `pwn.college{QOg7iC3-0_Dmc3xcQ2YQaHFElyl.QXwIDO0wyN5AzNzEzW}`
+
+($cat file) works but it wastes a call, so the shell's builtin read can take data directly from a file if path is given using the < operator to store it in the PWN variable.
+
+```bash
+read PWN < /challenge/read_me
+You've set the PWN variable properly! As promised, here is the flag:
+pwn.college{QOg7iC3-0_Dmc3xcQ2YQaHFElyl.QXwIDO0wyN5AzNzEzW}
+```
+
+### New Learnings
+A file's output can directly be fed into a variable.
+
+### References 
+-
