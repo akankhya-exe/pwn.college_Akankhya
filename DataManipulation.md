@@ -122,6 +122,13 @@ Add challenge description here
 type in your solve and your thought process behind solving the challenge. Include as much as info as possible. Use triple ticks for any bash commands and output you type on the terminal.
 
 ```bash
+cat /challenge/run
+#!/opt/pwn.college/bash
+
+cat /flag | while IFS= read -n1 C; do
+    [ -n "$C" ] && echo "$RANDOM $C"
+done
+
 /challenge/run | cut -d ' ' -f2 | tr -d '\n'
 pwn.college{AsuZkmgsWfO6HIOKSXgkuFRErNt.01NxEzNxwyN5AzNzEzW}
 ```
