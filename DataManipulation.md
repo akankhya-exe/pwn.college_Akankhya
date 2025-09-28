@@ -114,12 +114,17 @@ head -n command is used to grab the first few lines of a file, by default n=10.
 
 
 ## Challenge Name: Extracting specific sections of text
-Add challenge description here
+The flag present in /challenge/run is in the format of column 1: random number and column 2: actual flag character spread out over multiple lines, the goal is to extract the flag characters and put them all together to retrirve the full flag.
 
 ### Solve
 **Flag:** `pwn.college{AsuZkmgsWfO6HIOKSXgkuFRErNt.01NxEzNxwyN5AzNzEzW}`
 
-type in your solve and your thought process behind solving the challenge. Include as much as info as possible. Use triple ticks for any bash commands and output you type on the terminal.
+As seen in the cat command output and in the question, the random numbers are a distraction and the actual characters are only in the second column, to extract data from a particular column the cut command can be used. The cut command has two arguments:
+-d : specifies the delimiter; how the columns are seperated
+-f : the field number to be extracted from
+Here, the columns are separated by spaces so the delimiter is " " [$RANDOM <SPACE> $C] and the file column number is 2 as given in the question. The cut arguments are -d " " -f 2.
+Next is taking out all the newlines which can be done by tr -d.
+Putting everything together: /challenge/run | cut -d " " -f 2 | tr -d "\n|
 
 ```bash
 cat /challenge/run
@@ -134,7 +139,38 @@ pwn.college{AsuZkmgsWfO6HIOKSXgkuFRErNt.01NxEzNxwyN5AzNzEzW}
 ```
 
 ### New Learnings
-Brief note on what you learned from the challenge
+cut tool is used to extract vertical columns of text, it has two main arguments -d the delimiter and -f the column or field number, processing column based data
 
 ### References 
-Add any references or videos you used while solving the challenge.
+-
+
+
+
+
+
+
+
+
+
+## Challenge Name: Sorting data
+/challenge/flags.txt contains a 100 flags with the real flag hidden in it. If sorted in alphabetical order, the real flag comes at the very end, the goal is to retrieve the real flag by using sorting.
+
+### Solve
+**Flag:** `pwn.college{Yhk26-DQq_YF6p1AHDCGuZayzes.0FM0MDOxwyN5AzNzEzW}`
+
+Since when sorting in alphabetical order the real flag comes at the end, the file needs to be sorted in reverse. sort -r command can be used to sort in reverse order. The command is simply sort -r /challenge/flags.txt and take the first output as it's the last flag in normal alphabetical order.
+
+```bash
+sort -r /challenge/flags.txt
+pwn.college{Yhk26-DQq_YF6p1AHDCGuZayzes.0FM0MDOxwyN5AzNzEzW}
+pwn.college{Yhk26-DQq_YF6p1AHDCGuZayzes.0FM0MDOxwyN5AzNzEzW}
+pwn.college{Yhk26-DQq_YF6p1AHDCGuZayzes.0FM0MDOxwyN5AyNzEzW}
+pwn.college{Yhk26-DQq_YF6p1AHDCGtZayzes.0FM0MDOxwyN5AzNzEzW}
+...
+```
+
+### New Learnings
+Data can be sorted using the sort command which has the arguments -r (reverse), -n (numeric), -u (remove duplicates), -R (random), the default is alphabetic sorting.
+
+### References 
+-
