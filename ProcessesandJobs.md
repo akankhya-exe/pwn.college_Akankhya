@@ -346,13 +346,13 @@ fg works on both suspended and background running processes. A program can be su
 
 
 
-## Challenge Name
-Add challenge description here
+## Challenge Name: Starting Background Processes
+The goal is to to background the /challenge/run program off the bat without using suspension using the & operator.
 
 ### Solve
 **Flag:** `pwn.college{helloworld}`
 
-type in your solve and your thought process behind solving the challenge. Include as much as info as possible. Use triple ticks for any bash commands and output you type on the terminal.
+To background a process immediately, add a & to the end of the command to be backgrounded.
 
 ```bash
 /challenge/run &
@@ -366,11 +366,42 @@ pwn.college{wO1OjBdEmkbDJ31zC8ef4vuTSBu.QX5QDO0wyN5AzNzEzW}
 ```
 
 ### New Learnings
-Brief note on what you learned from the challenge
+command & to background a problem without using Ctrl + Z and bg.
 
 ### References 
-Add any references or videos you used while solving the challenge.
+-
 
+
+
+
+
+
+
+
+
+## Challenge Name: Process Exit Codes
+The challenge is to run /challenge/get-code, find it's exit code and use that as an argument to run /challenge/submit-code to get the flag.
+
+### Solve
+**Flag:** `pwn.college{ElxS2SYUE16h1400qO4vkvNXHjV.QX5YDO1wyN5AzNzEzW}`
+
+To find the exit code of a command: run /challenge/get-code (the command whose error code is needed) and then run echo $? to get the error code and read it immediately after. The error code will be displayed in the terminal which is the required to use as an argument for /challenge/submit-code.
+
+```bash
+/challenge/get-code
+Exiting with an error code!
+echo $?
+233
+/challenge/submit-code 233
+CORRECT! Here is your flag:
+pwn.college{ElxS2SYUE16h1400qO4vkvNXHjV.QX5YDO1wyN5AzNzEzW}
+```
+
+### New Learnings
+Running echo $? after a command gives its exit code, however if you run command 1 and then command 2 and then echo $?, command 1's exit code will be overwritten to command 2's exit code.
+
+### References 
+-
 
 
 
