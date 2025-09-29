@@ -241,13 +241,13 @@ fg is used to resume a suspended program in the foreground.
 
 
 
-## Challenge Name: Backgrounding processes
-Add challenge description here
+## Challenge Name: Backgrounding Processes
+The goal is run a program's copy on the same terminal using the bg command and launch another copy while the first one runs in the background.
 
 ### Solve
 **Flag:** `pwn.college{kZcJlpL_AReomAIHBpLBM829QMV.QX3QDO0wyN5AzNzEzW}`
 
-type in your solve and your thought process behind solving the challenge. Include as much as info as possible. Use triple ticks for any bash commands and output you type on the terminal.
+Firstly, run /challenge/run and then Ctrl + Z to suspend the program. Next, use the bg command to resume the program in the background, meaning the program will keep running but it gives back access to the terminal. Use /challenge/run to run the second instance again.
 
 ```bash
 /challenge/run
@@ -287,11 +287,89 @@ pwn.college{kZcJlpL_AReomAIHBpLBM829QMV.QX3QDO0wyN5AzNzEzW}
 ```
 
 ### New Learnings
+The bg command is used to take a suspended process and resume it in the background so that the terminal can keep taking prompts.
+
+### References 
+-
+
+
+
+
+
+
+
+
+
+## Challenge Name: Foregrounding Processes
+The goal is to run a program, send it to the background and bring it back to the foreground.
+
+### Solve
+**Flag:** `pwn.college{cpjeSuGjW8XR9l4XORu78CvEGUY.QX4QDO0wyN5AzNzEzW}`
+
+To run and suspend a program: /challenge/run and then Ctrl + Z. bg to send it to the background and fg to bring the same process back to the foreground.
+
+```bash
+/challenge/run
+To pass this level, you need to suspend me, resume the suspended process in the
+background, and *then* foreground it without re-suspending it! You can
+background me with Ctrl-Z (and resume me in the background with 'bg') or, if
+you're not ready to do that for whatever reason, just hit Enter and I'll exit!
+^Z
+[1]+  Stopped                 /challenge/run
+
+bg
+[1]+ /challenge/run &
+
+Yay, I'm now running the background! Because of that, this text will probably
+overlap weirdly with the shell prompt. Don't panic; just hit Enter a few times
+to scroll this text out. After that, resume me into the foreground with 'fg';
+I'll wait.
+
+fg
+/challenge/run
+YES! Great job! I'm now running in the foreground. Hit Enter for your flag!
+
+pwn.college{cpjeSuGjW8XR9l4XORu78CvEGUY.QX4QDO0wyN5AzNzEzW}
+```
+
+### New Learnings
+fg works on both suspended and background running processes. A program can be suspended, backgrounded and foregrounded.
+
+### References 
+-
+
+
+
+
+
+
+
+
+
+## Challenge Name
+Add challenge description here
+
+### Solve
+**Flag:** `pwn.college{helloworld}`
+
+type in your solve and your thought process behind solving the challenge. Include as much as info as possible. Use triple ticks for any bash commands and output you type on the terminal.
+
+```bash
+/challenge/run &
+[1] 138
+
+Yay, you started me in the background! Because of that, this text will probably
+overlap weirdly with the shell prompt, but you're used to that by now...
+
+Anyways! Here is your flag!
+pwn.college{wO1OjBdEmkbDJ31zC8ef4vuTSBu.QX5QDO0wyN5AzNzEzW}
+```
+
+### New Learnings
 Brief note on what you learned from the challenge
 
 ### References 
 Add any references or videos you used while solving the challenge.
-
 
 
 
