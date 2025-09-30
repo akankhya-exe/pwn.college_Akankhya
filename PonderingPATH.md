@@ -100,13 +100,18 @@ which command searches directories in the PATH variable to find and display the 
 
 
 ## Challenge Name: Adding Commands
-Add challenge description here
+The goal is to execute the /challenge/run command whose sole purpose is to run the win command except the win command does not exist. win must be created in a script then modify the path so that /challenge/run
+runs the win command defined in this script.
 
 ### Solve
 **Flag:** `pwn.college{M9Jlu4zfTe2Yxs93UL5Z4TZp_aQ.QX2cjM1wyN5AzNzEzW}`
 
-type in your solve and your thought process behind solving the challenge. Include as much as info as possible. Use triple ticks for any bash commands and output you type on the terminal.
-
+The script's job is to print the flag (/challenge/run should give the flag), use the full path to make sure it works with a modified PATH too while cat-ing.
+echo '#!/bin/bash' > ~/win
+echo '/bin/cat /flag' >> ~/win
+This puts the flag in the win script.
+Next make it executable with chmod +x 
+The last step is to run the /challenge/run program but it's PATH must be specified to the home directory where the win script is so that /challenge/run will be forced to run the win script.
 ```bash
 which cat
 /run/dojo/bin/cat
@@ -117,7 +122,7 @@ PATH=~/ /challenge/run
 ```
 
 ### New Learnings
-Brief note on what you learned from the challenge
+Custom commands can be created by making an executable script and putting its directory in the PATH variable to use while executing.
 
 ### References 
 -
@@ -131,15 +136,13 @@ Brief note on what you learned from the challenge
 
 
 
-# Module Name
-
-## Challenge Name
-Add challenge description here
+## Challenge Name: Hijacking Commands
+The goal is to prevent /challenge/run from running the rm command and removing the flag by hijacking the rm command and making it print the flag instead.
 
 ### Solve
 **Flag:** `pwn.college{sOJT5p5tsSy-8TJea_vfG4bozar.QX3cjM1wyN5AzNzEzW}`
 
-type in your solve and your thought process behind solving the challenge. Include as much as info as possible. Use triple ticks for any bash commands and output you type on the terminal.
+The solution is to trick the /challenge/run program by creating a custom rm command and hijacking the PATH variable. First, a fake rm script is created in the home directory using echo '#!/bin/bash' > ~/rm followed by echo '/run/dojo/bin/cat /flag' >> ~/rm. This script is designed to ignore any arguments and simply print the contents of /flag using its full path. After being made executable with chmod +x ~/rm, the challenge is run with the command PATH=~/ /challenge/run. This forces the shell to search only the home directory, causing it to find and execute the fake rm script, which then prints the flag.
 
 ```bash
 which cat
@@ -153,7 +156,7 @@ pwn.college{sOJT5p5tsSy-8TJea_vfG4bozar.QX3cjM1wyN5AzNzEzW}
 ```
 
 ### New Learnings
-Brief note on what you learned from the challenge
+A command can be replaced with a custom defined command and can be made to run by manipulating the PATH variable, a command's functionality can be changed essentially.
 
 ### References 
 -
