@@ -181,12 +181,14 @@ A script can be executed directly by making it executable using perms and runnin
 
 
 ## Challenge Name: Understanding Shebangs
-Add challenge description here
+The goal is to create an executable shell script, it must have a shebang on its first line (#!) to tell the system what interpreter to use. The script script.sh needs to have the phrase "hack the planet", be
+made executable for the flag to be retrieved.
 
 ### Solve
 **Flag:** `pwn.college{UNjHGHhDP5LpOwbcIcoDnAPr4MO.0VOzMDOxwyN5AzNzEzW}`
 
-type in your solve and your thought process behind solving the challenge. Include as much as info as possible. Use triple ticks for any bash commands and output you type on the terminal.
+The shebang tells the OS which interpreter to run the script with, the standard bash interpreter is /bin/bash for the shebang is #!/bin/bash which needs to be the first line of the script, next add the required 'hack the planet' phrase in the same script using the > and >> operators. So echo '#!/bin/bash' > solve.sh and and echo 'echo "hack the planet"' >> solve.sh (two echos to be able to print).
+To make it executable perms have be changed using chmod +x. The flag file can now be run.
 
 ```bash
 echo '#!/bin/bash' > /home/hacker/solve.sh
@@ -199,12 +201,215 @@ Flag: pwn.college{UNjHGHhDP5LpOwbcIcoDnAPr4MO.0VOzMDOxwyN5AzNzEzW}
 ```
 
 ### New Learnings
-Brief note on what you learned from the challenge
+The shebang is the first line of a shell script which tells the OS which interpreter to use, the script is now self-sufficient, the script knows how to run without having to explicitly type bash in the beginning.
 
 ### References 
-Add any references or videos you used while solving the challenge.
+-
 
 
+
+
+
+
+
+
+
+## Challenge Name
+The goal is to write a shell script named /home/hacker/solve.sh that takes two command arguments and then prints them in reverse.
+
+### Solve
+**Flag:** `pwn.college{4d3MPyFV_JR-anT3L3cRAKCrRdf.0VNzMDOxwyN5AzNzEzW}`
+
+The script needs to firstly access the first and second arguments. Variables are stored in the form of $1 $2. To print them in reverse, $2 needs to be printed followed by $1. The echo command can be written
+as echo "$2 $1"
+/home/hacker/solve.sh is created with the relevant commands: #!/bin/bash for shebang and then to output in reverse put $2 first and $1 second. Change file perms and run.
+
+```bash
+echo '#!/bin/bash' > /home/hacker/solve.sh
+echo 'echo "$2 $1"' >> /home/hacker/solve.sh
+chmod +x /home/hacker/solve.sh
+/challenge/run
+Correct! Your script properly reversed the arguments.
+Here's your flag:
+pwn.college{4d3MPyFV_JR-anT3L3cRAKCrRdf.0VNzMDOxwyN5AzNzEzW}
+```
+
+### New Learnings
+$1 and $2 are positional arguments, $1, $2 etc are used to access the arguments passed to it in order.
+
+### References 
+-
+
+
+
+
+
+
+
+
+
+## Challenge Name: Scripting with Conditionals
+The goal is to write a script that uses conditional logic. The /home/hacker/solve.sh script has to check if the argument is pwn and print college, otherwise print nothing.
+
+### Solve
+**Flag:** `pwn.college{klyA64OLs8YnDR7Yuph91nu0sLk.0lNzMDOxwyN5AzNzEzW}`
+
+The logic constructed is:
+if [ "$1" == "pwn" ]; then
+  echo "college"
+fi
+
+then input this structure line by line into the /home/hacker/solve.sh script and give relevant execution permissions.
+
+```bash
+echo '#!/bin/bash' > /home/hacker/solve.sh
+echo 'if [ "$1" == "pwn" ]; then' >> /home/hacker/solve.sh
+echo '  echo "college"' >> /home/hacker/solve.sh
+echo 'fi' >> /home/hacker/solve.sh
+chmod +x /home/hacker/solve.sh
+/challenge/run
+Correct! Your script properly handles all the conditions.
+Here's your flag:
+pwn.college{klyA64OLs8YnDR7Yuph91nu0sLk.0lNzMDOxwyN5AzNzEzW}
+```
+
+### New Learnings
+Conditional logic can be added to scripts for deicison making, different actions can be made based on different decisions.
+[] contains the test condition.
+
+### References 
+-
+
+
+
+
+
+
+
+
+
+
+## Challenge Name: Scripting with Default Cases
+The goal is to write an if/else block that has two possible outcomes, the logic should be in the /home/hacker/solve.sh file, if the argument is "pwn" output should be "college" otherwise output should be "nope".
+
+### Solve
+**Flag:** `pwn.college{YA2aeKQRcnvFT3BQLJYBHT8Acw1.01NzMDOxwyN5AzNzEzW}`
+
+The logic is:
+if [ "$1" == "pwn" ]; then
+  echo "college"
+else
+  echo "nope"
+fi
+
+Input every line into the script file and give execution perms.
+
+```bash
+echo '#!/bin/bash' > /home/hacker/solve.sh
+echo 'if [ "$1" == "pwn" ]; then' >> /home/hacker/solve.sh
+echo '  echo "college"' >> /home/hacker/solve.sh
+echo 'else' >> /home/hacker/solve.sh
+echo '  echo "nope"' >> /home/hacker/solve.sh
+echo 'fi' >> /home/hacker/solve.sh
+chmod +x /home/hacker/solve.sh
+/challenge/run
+Correct! Your script properly handles the if/else conditions.
+Here's your flag:
+pwn.college{YA2aeKQRcnvFT3BQLJYBHT8Acw1.01NzMDOxwyN5AzNzEzW}
+```
+
+### New Learnings
+else block provides an outcome mechanism in case the if block is false, different decisions can be made.
+
+### References 
+-
+
+
+
+
+
+
+
+
+
+## Challenge Name
+Add challenge description here
+
+### Solve
+**Flag:** `pwn.college{EMiVECCtA1hEjq1khMzNIk0_27n.0FOzMDOxwyN5AzNzEzW}`
+
+Logic:
+if [ "$1" == "hack" ]; then
+  echo "the planet"
+elif [ "$1" == "pwn" ]; then
+  echo "college"
+elif [ "$1" == "learn" ]; then
+  echo "linux"
+else
+  echo "unknown"
+fi
+
+```bash
+echo '#!/bin/bash' > /home/hacker/solve.sh
+echo 'if [ "$1" == "hack" ]; then' >> /home/hacker/solve.sh
+echo '  echo "the planet"' >> /home/hacker/solve.sh
+echo 'elif [ "$1" == "pwn" ]; then' >> /home/hacker/solve.sh
+echo '  echo "college"' >> /home/hacker/solve.sh
+echo 'elif [ "$1" == "learn" ]; then' >> /home/hacker/solve.sh
+echo '  echo "linux"' >> /home/hacker/solve.sh
+echo 'else' >> /home/hacker/solve.sh
+echo '  echo "unknown"' >> /home/hacker/solve.sh
+echo 'fi' >> /home/hacker/solve.sh
+chmod +x /home/hacker/solve.sh
+/challenge/run
+```
+
+### New Learnings
+elif clause if used to implement multiple condition checks.
+
+### References 
+-
+
+
+
+
+
+
+
+
+
+
+## Challenge Name: Reading Shell Scripts
+The goal is to find the password inside the /challenge/run shell script, get the password and run the program with the provided password.
+
+### Solve
+**Flag:** `pwn.college{helloworld}`
+
+First use cat to read the file, clearly according to the if statement the "guess" argument has to be hack the PLANET for the flag to work. Run /challenge/run with the password and get the flag.
+
+```bash
+cat /challenge/run
+#!/opt/pwn.college/bash
+
+read GUESS
+if [ "$GUESS" == "hack the PLANET" ]
+then
+        echo "CORRECT! Your flag:"
+        cat /flag
+else
+        echo "Read the /challenge/run file to figure out the correct password!"
+
+/challenge/run
+hack the PLANET
+CORRECT! Your flag:
+pwn.college{U61GAdsOM3U7mIrNjEWNx9pHc2b.0lMwgDOxwyN5AzNzEzW}
+```
+
+### New Learnings
+Scripts can be open and read, simple tools can be used to read what the program is doing.
+
+### References 
+-
 
 
 
