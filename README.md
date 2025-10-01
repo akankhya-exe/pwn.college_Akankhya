@@ -1,1 +1,0 @@
-# pwn.college_Akankhya
